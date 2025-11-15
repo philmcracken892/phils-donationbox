@@ -2,7 +2,7 @@ Config = {}
 
 Config.DonationBoxes = {
     {
-        coords = vector4(-975.96, -1183.13, 59.01, 65.89),
+        coords = vector4(-976.45, -1182.56, 59.01, 72.03),
         name = "donation_box_1",
         label = "Donation Box",
     },
