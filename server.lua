@@ -1,22 +1,12 @@
 local RSGCore = exports['rsg-core']:GetCoreObject()
 
 
-CreateThread(function()
-    Wait(1000)
-    
-    for _, box in ipairs(Config.DonationBoxes) do
-        exports['rsg-inventory']:RegisterStash(box.name, box.label, Config.MaxSlots, Config.MaxWeight)
-       
-    end
-end)
-
 
 RegisterNetEvent('donationbox:server:openStash', function(boxName)
     local src = source
     local Player = RSGCore.Functions.GetPlayer(src)
-    
+   
     if not Player then return end
-    
    
     local boxExists = false
     for _, box in ipairs(Config.DonationBoxes) do
@@ -25,7 +15,7 @@ RegisterNetEvent('donationbox:server:openStash', function(boxName)
             break
         end
     end
-    
+   
     if not boxExists then
         TriggerClientEvent('ox_lib:notify', src, {
             title = 'Error',
@@ -34,9 +24,14 @@ RegisterNetEvent('donationbox:server:openStash', function(boxName)
         })
         return
     end
-    
-    
-    exports['rsg-inventory']:OpenInventory(src, boxName)
+   
+    -- Updated to include options table for custom slots/weight
+    exports['rsg-inventory']:OpenInventory(src, boxName, {
+        maxweight = Config.MaxWeight,
+        slots = Config.MaxSlots
+    })
 end)
+
+
 
 
